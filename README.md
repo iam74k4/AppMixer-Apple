@@ -1,5 +1,9 @@
 # AppMixer
 
+![Platform](https://img.shields.io/badge/platform-macOS%2014.4%2B-blue)
+![Swift](https://img.shields.io/badge/swift-5.9-F05138?logo=swift&logoColor=white)
+![License](https://img.shields.io/badge/license-Proprietary-lightgrey)
+
 **macOS でアプリケーションごとに音量を変える、メニューバー常駐のボリュームミキサー。**
 
 再生中のアプリを一覧し、それぞれの音量を独立して調整できます。設定は出力デバイスごとに
