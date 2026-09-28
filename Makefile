@@ -89,6 +89,8 @@ bundle: check-version build icon
 	@cp bundle/Info.plist "$(CONTENTS)/Info.plist"
 	@/usr/libexec/PlistBuddy -c "Set :CFBundleVersion $(BUILD_NUMBER)" "$(CONTENTS)/Info.plist"
 	@cp bundle/icon/AppIcon.icns "$(CONTENTS)/Resources/AppIcon.icns"
+	@# 画面の翻訳（en.lproj / ja.lproj）。
+	@cp -R bundle/*.lproj "$(CONTENTS)/Resources/"
 	@cp "$(BUILD_DIR)/$(APP_NAME)" "$(CONTENTS)/MacOS/$(APP_NAME)"
 	@printf 'APPL????' > "$(CONTENTS)/PkgInfo"
 	@echo "Bundled -> $(APP) (version $(VERSION), build $(BUILD_NUMBER))"

@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <!-- 画面は日本語と英語（bundle/*.lproj）。どちらでもない言語の Mac では
+         ここに落ちる。原文は日本語だが、世界向けには英語のほうが通じる。 -->
+    <key>CFBundleDevelopmentRegion</key>
+    <string>en</string>
     <key>CFBundleName</key>
     <string>AppMixer</string>
     <key>CFBundleDisplayName</key>

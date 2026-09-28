@@ -121,9 +121,11 @@ struct ContentView: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text("システム音声録音の許可が必要です")
                     .font(.caption).fontWeight(.medium)
+                // 三項演算子で分けたリテラルは String と推論されて訳を引かないため、
+                // LocalizedStringKey と明示する。
                 Text(model.permission == .denied
-                     ? "システム設定で AppMixer を許可してください"
-                     : "許可すると音量を調整できます")
+                     ? LocalizedStringKey("システム設定で AppMixer を許可してください")
+                     : LocalizedStringKey("許可すると音量を調整できます"))
                     .font(.caption2).foregroundStyle(.secondary)
             }
             Spacer()

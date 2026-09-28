@@ -54,7 +54,7 @@ struct AppRowView: View {
                 outputMenu
             }
 
-            Text(display.muted ? "ミュート" : "\(Int((display.volume * 100).rounded()))%")
+            Text(display.muted ? localized("ミュート") : "\(Int((display.volume * 100).rounded()))%")
                 .font(.caption.monospacedDigit())
                 .foregroundStyle(display.muted ? Color.secondary : Color.primary)
                 .frame(width: 52, alignment: .trailing)
@@ -70,8 +70,11 @@ struct AppRowView: View {
     }
 
     private var volumeHelp: String {
-        "この音量は「\(model.memoryDeviceName(for: app))」に対して記憶されます。"
-            + "ダブルクリックで 100% に戻します"
+        // 書式つきの文言なので、原文の 100% は %% と書く。
+        String(
+            format: localized("この音量は「%@」に対して記憶されます。ダブルクリックで 100%% に戻します"),
+            model.memoryDeviceName(for: app)
+        )
     }
 
     @ViewBuilder
