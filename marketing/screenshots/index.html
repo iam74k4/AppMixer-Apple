@@ -1,0 +1,20 @@
+<!doctype html>
+<!--
+  App Store 用スクリーンショットの版下。render.sh が Chrome のヘッドレスで開き、
+  2880×1800 の PNG に書き出す。1 枚ぶんを ?shot=<id>&lang=<ja|en> で選ぶ。
+  ブラウザで直接開いて確認してもよい（先に render.sh で部品を作っておくこと）。
+-->
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>AppMixer screenshots</title>
+<link rel="stylesheet" href="styles.css">
+<script src="build/assets/symbols/manifest.js"></script>
+<script src="build/meta.js"></script>
+<script src="shots.js"></script>
+<script src="app.js" defer></script>
+</head>
+<body>
+<div id="canvas"></div>
+</body>
+</html>

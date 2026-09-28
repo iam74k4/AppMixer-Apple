@@ -24,3 +24,6 @@ bundle/icon/AppIcon.icns
 
 # App Store 提出用のプロビジョニングプロファイル。
 *.provisionprofile
+
+# App Store 用スクリーンショットの生成物（marketing/screenshots/render.sh）
+marketing/screenshots/build/
