@@ -122,24 +122,23 @@ def find_build(app, build_number, version):
     ASC では builds.version が CFBundleVersion（ビルド番号）で、
     preReleaseVersion.version が表示用バージョン。名前が紛らわしいので注意。
 
-    まず両方で絞る。空振りしたときはビルド番号だけでもう一度見る。表示用
-    バージョンでの絞り込みが効かない場合に、一致するビルドが目の前にあるのに
-    タイムアウトまで待ち続けるのを避けるため。
+    必ず両方で絞る。ビルド番号だけで探すと、同じ番号を持つ別バージョンの
+    古いビルド（例: 1.0 (10001) と 1.0.1 (10001)）を掴んでしまい、
+    紐づけた版が INVALID_BINARY になる。処理中のビルドがまだ一覧に出て
+    いない間は None を返し、呼び出し側が待つ。
     """
-    for extra in ({"filter[preReleaseVersion.version]": version}, {}):
-        found = api(
-            "GET",
-            "/v1/builds",
-            params={
-                "filter[app]": app,
-                "filter[version]": build_number,
-                "limit": 1,
-                **extra,
-            },
-        )["data"]
-        if found:
-            return found[0]
-    return None
+    found = api(
+        "GET",
+        "/v1/builds",
+        params={
+            "filter[app]": app,
+            "filter[version]": build_number,
+            "filter[preReleaseVersion.version]": version,
+            "sort": "-uploadedDate",
+            "limit": 1,
+        },
+    )["data"]
+    return found[0] if found else None
 
 
 def cmd_wait_build(args):
@@ -224,7 +223,12 @@ def find_or_create_version(app, version_string, release_type):
 
 
 def set_whats_new(version_id, notes):
-    """「このバージョンでの変更点」を全ロケールに入れる。
+    """「このバージョンでの変更点」を、まだ空のロケールに入れる。
+
+    CHANGELOG は日本語なので、そのまま全ロケールへ入れると英語のページにも
+    日本語のリリースノートが出る。App Store Connect で先に書いておいた
+    ロケール（英語など）は上書きしない。新しいバージョンは空で作られるため、
+    何も書いていなければ従来どおり全ロケールに入る。
 
     アプリの最初のバージョンには変更点の欄が無く、Apple は 409 を返す。
     それは失敗ではないので警告にとどめる。
@@ -234,6 +238,9 @@ def set_whats_new(version_id, notes):
     )["data"]
     for localization in localizations:
         locale = localization["attributes"].get("locale")
+        if (localization["attributes"].get("whatsNew") or "").strip():
+            log(f"{locale} は App Store Connect で書かれているので、そのままにします。")
+            continue
         try:
             api(
                 "PATCH",

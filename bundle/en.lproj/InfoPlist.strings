@@ -1,0 +1,2 @@
+/* 英語の Info.plist。システム音声録音の許可を求めるときに表示される。 */
+"NSAudioCaptureUsageDescription" = "AppMixer captures each app’s audio to change its volume and play it back. Audio is never recorded, saved, or sent.";

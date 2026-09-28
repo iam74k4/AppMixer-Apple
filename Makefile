@@ -7,6 +7,9 @@
 #     make bundle                 .app を dist/ に生成するだけ
 #     make clean
 #
+#   App Store の素材
+#     make screenshots            スクリーンショットを marketing/screenshots/build/ に書き出す
+#
 #   リリース（Mac App Store）
 #     make clean                  前回の残りを消してから作り直す
 #     make run-sandboxed          サンドボックスを有効にして起動（動作確認用）
@@ -50,7 +53,7 @@ BUNDLE_ID := $(shell /usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" bund
 # 提出時だけ使う、組み立て済みのエンタイトルメント。
 MAS_ENTITLEMENTS := $(DIST)/mas/entitlements.plist
 
-.PHONY: all build bundle icon sign run clean check-version run-sandboxed mas check-mas
+.PHONY: all build bundle icon sign run clean check-version run-sandboxed mas check-mas screenshots
 
 # 署名やアーカイブは同じ .app を触るため、並列に走らせると壊れる。
 .NOTPARALLEL:
@@ -86,6 +89,8 @@ bundle: check-version build icon
 	@cp bundle/Info.plist "$(CONTENTS)/Info.plist"
 	@/usr/libexec/PlistBuddy -c "Set :CFBundleVersion $(BUILD_NUMBER)" "$(CONTENTS)/Info.plist"
 	@cp bundle/icon/AppIcon.icns "$(CONTENTS)/Resources/AppIcon.icns"
+	@# 画面の翻訳（en.lproj / ja.lproj）。
+	@cp -R bundle/*.lproj "$(CONTENTS)/Resources/"
 	@cp "$(BUILD_DIR)/$(APP_NAME)" "$(CONTENTS)/MacOS/$(APP_NAME)"
 	@printf 'APPL????' > "$(CONTENTS)/PkgInfo"
 	@echo "Bundled -> $(APP) (version $(VERSION), build $(BUILD_NUMBER))"
@@ -174,6 +179,10 @@ mas: check-mas bundle
 	@echo
 	@echo "提出物: $(PKG)"
 	@echo "この後: Transporter.app で App Store Connect へアップロードする"
+
+# App Store 用のスクリーンショット（日本語・英語）。詳しくは marketing/screenshots/README.md。
+screenshots:
+	@marketing/screenshots/render.sh
 
 clean:
 	@rm -rf .build "$(DIST)" bundle/icon/AppIcon.icns

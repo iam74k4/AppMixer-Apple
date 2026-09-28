@@ -60,7 +60,7 @@ enum DuckingDetector {
             return app.name
         }
         if useMicrophone, apps.contains(where: \.isRunningInput) {
-            return "マイク使用中"
+            return localized("マイク使用中")
         }
         return nil
     }
