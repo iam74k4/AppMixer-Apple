@@ -19,9 +19,9 @@ final class MixerModel: ObservableObject {
         var message: String {
             switch self {
             case .notApplied:
-                return "設定を適用できませんでした。実際の音は変わっていません。"
+                return localized("設定を適用できませんでした。実際の音は変わっていません。")
             case .silenced:
-                return "出力先の切り替えに追従できず、このアプリの音が止まっています。復旧を試みています。"
+                return localized("出力先の切り替えに追従できず、このアプリの音が止まっています。復旧を試みています。")
             }
         }
     }
@@ -537,8 +537,8 @@ final class MixerModel: ObservableObject {
     }
 
     func outputDeviceName(_ uid: String?) -> String {
-        guard let uid else { return "既定の出力" }
-        return outputDevices.first { $0.uid == uid }?.name ?? "不明なデバイス"
+        guard let uid else { return localized("既定の出力") }
+        return outputDevices.first { $0.uid == uid }?.name ?? localized("不明なデバイス")
     }
 
     // MARK: - 自動ダッキング
@@ -695,9 +695,9 @@ final class MixerModel: ObservableObject {
         let problem: String?
         switch state {
         case .requiresApproval:
-            problem = "システム設定のログイン項目で許可してください"
+            problem = localized("システム設定のログイン項目で許可してください")
         case .notFound:
-            problem = "アプリの場所が変わりました。一度オフにして入れ直してください"
+            problem = localized("アプリの場所が変わりました。一度オフにして入れ直してください")
         case .enabled:
             // 有効になっているなら、前回の失敗はもう関係ない。
             launchAtLoginError = nil

@@ -223,7 +223,12 @@ def find_or_create_version(app, version_string, release_type):
 
 
 def set_whats_new(version_id, notes):
-    """「このバージョンでの変更点」を全ロケールに入れる。
+    """「このバージョンでの変更点」を、まだ空のロケールに入れる。
+
+    CHANGELOG は日本語なので、そのまま全ロケールへ入れると英語のページにも
+    日本語のリリースノートが出る。App Store Connect で先に書いておいた
+    ロケール（英語など）は上書きしない。新しいバージョンは空で作られるため、
+    何も書いていなければ従来どおり全ロケールに入る。
 
     アプリの最初のバージョンには変更点の欄が無く、Apple は 409 を返す。
     それは失敗ではないので警告にとどめる。
@@ -233,6 +238,9 @@ def set_whats_new(version_id, notes):
     )["data"]
     for localization in localizations:
         locale = localization["attributes"].get("locale")
+        if (localization["attributes"].get("whatsNew") or "").strip():
+            log(f"{locale} は App Store Connect で書かれているので、そのままにします。")
+            continue
         try:
             api(
                 "PATCH",

@@ -1,0 +1,49 @@
+/*
+  英語の訳。キーは画面の日本語の原文そのもの（Sources/AppMixer/Localization.swift）。
+  ja.lproj/Localizable.strings とキーを揃えること。
+*/
+
+/* ヘッダー・マスター・検索 */
+"システム全体の出力先を切り替えます" = "Switch the system output device";
+"すべて" = "All";
+"アプリを検索" = "Search apps";
+"全アプリ" = "Show all";
+
+/* 許可 */
+"システム音声録音の許可が必要です" = "System audio recording access is required";
+"システム設定で AppMixer を許可してください" = "Allow AppMixer in System Settings";
+"許可すると音量を調整できます" = "Allow access to adjust app volumes";
+"設定" = "Settings";
+"許可" = "Allow";
+
+/* 一覧 */
+"アプリが見つかりません" = "No apps found";
+"再生中のアプリはありません" = "Nothing is playing";
+"音楽や動画を再生すると、ここに表示されます" = "Play music or a video and it will appear here";
+"すべてのアプリを表示" = "Show all apps";
+"ミュート" = "Muted";
+"この音量は「%@」に対して記憶されます。ダブルクリックで 100%% に戻します" = "This volume is remembered for “%@”. Double-click to reset to 100%%.";
+"通話中のため自動で音量を下げています" = "Lowered automatically during a call";
+"既定の出力" = "Default Output";
+"このアプリの出力先を選ぶ" = "Choose this app’s output device";
+"不明なデバイス" = "Unknown device";
+"不明な出力デバイス" = "Unknown output device";
+"設定を適用できませんでした。実際の音は変わっていません。" = "Couldn’t apply this setting. The app’s sound hasn’t changed.";
+"出力先の切り替えに追従できず、このアプリの音が止まっています。復旧を試みています。" = "This app went silent when the output device changed. Trying to recover…";
+
+/* 自動ダッキング */
+"%@ のため音量を下げています" = "%@ — other apps lowered";
+"マイク使用中" = "Mic in use";
+"通話中は自動で音量を下げる" = "Lower other apps during calls";
+"下げる音量" = "Lower to";
+"マイクの使用も引き金にする" = "Also when the mic is in use";
+
+/* ログイン時に起動 */
+"ログイン時に起動" = "Launch at login";
+"設定を開く" = "Open Settings";
+"システム設定のログイン項目で許可してください" = "Allow AppMixer in System Settings › Login Items";
+"アプリの場所が変わりました。一度オフにして入れ直してください" = "AppMixer was moved. Turn this off and on again.";
+
+/* フッター */
+"問題を報告する（バージョン %@）" = "Report a problem (version %@)";
+"終了" = "Quit";

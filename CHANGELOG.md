@@ -5,7 +5,12 @@
 
 ## [未リリース]
 
-## [1.0.1] - 未リリース
+## [1.0.2] - 未リリース
+
+### 追加
+- 英語の画面。macOS の言語が英語（日本語・英語以外の言語も含む）のときは英語で表示する
+
+## [1.0.1] - 2026-08-28
 
 ### 変更
 - アプリアイコンを黒・白の配色に改め、つまみと出ている音量ぶんだけをシステムブルーで塗る
@@ -29,5 +34,6 @@
   （出力先の切り替えに追従できず音が止まった場合は復旧を試み続ける）
 
 [未リリース]: https://github.com/iam74k4/AppMixer-MacOS/compare/main...HEAD
-[1.0.1]: https://github.com/iam74k4/AppMixer-MacOS/compare/v1.0...HEAD
+[1.0.2]: https://github.com/iam74k4/AppMixer-MacOS/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/iam74k4/AppMixer-MacOS/compare/v1.0...v1.0.1
 [1.0]: https://github.com/iam74k4/AppMixer-MacOS/releases/tag/v1.0

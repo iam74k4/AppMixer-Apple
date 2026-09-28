@@ -661,7 +661,7 @@ final class MixerController {
     }
 
     func defaultOutputName() -> String {
-        CoreAudioObject.deviceName(CoreAudioObject.defaultOutputDeviceID()) ?? "不明な出力デバイス"
+        CoreAudioObject.deviceName(CoreAudioObject.defaultOutputDeviceID()) ?? localized("不明な出力デバイス")
     }
 
     // MARK: - Default output device change
