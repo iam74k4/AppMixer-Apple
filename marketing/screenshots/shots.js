@@ -8,34 +8,55 @@
 //     30% の行は 100% の行より短く、ミュート中は伸びない
 //   - ダッキング中も表示する音量は利用者が決めた値のまま。行に橙の印が付く
 //
-// UI の文言はアプリ本体が日本語のみのため、英語版でも日本語のまま見せる。
+// { ja, en } の形の値は言語ごとに切り替わる。アプリ名とデバイス名は macOS が
+// 返す名前なので、その言語の Mac で実際に出る名前にする（英語の Mac では
+// 「ミュージック」ではなく「Music」）。AppMixer 自身の文言は app.js の UI。
+//
+// scene は背景に置くウインドウ。x・y はキャンバス（1440×900）上の左上の位置、
+// w はウインドウの幅（pt）。ポップオーバーより一段小さい倍率（SCENE_Z）で描き、
+// ポップオーバーの下から覗かせる。
 
-const DEVICE_SPEAKER = "MacBook Air のスピーカー";
-const DEVICE_AIRPODS = "AirPods Pro";
-const DEVICE_USB = "USB Audio Device";
+const APP = {
+  discord: { name: "Discord", icon: "discord" },
+  chrome: { name: "Google Chrome", icon: "chrome" },
+  facetime: { name: "FaceTime", icon: "facetime" },
+  music: { name: { ja: "ミュージック", en: "Music" }, icon: "music" },
+};
+
+const SCENE_Z = 1.25;
+
+const DEVICE = {
+  speaker: { ja: "MacBook Air のスピーカー", en: "MacBook Air Speakers" },
+  airpods: "AirPods Pro",
+  usb: "USB Audio Device",
+};
 
 window.SHOTS = [
   {
     id: "01-per-app-volume",
     layout: "side",
-    z: 1.9,
+    z: 1.8,
     popover: {
-      device: DEVICE_SPEAKER,
+      device: DEVICE.speaker,
       master: 0.62,
       rows: [
-        { name: "Discord", icon: "discord", volume: 1.0, muted: true, level: 0 },
-        { name: "Google Chrome", icon: "chrome", volume: 0.3, level: 0.21 },
-        { name: "ミュージック", icon: "music", volume: 0.8, level: 0.56 },
+        { ...APP.discord, volume: 1.0, muted: true, level: 0 },
+        { ...APP.chrome, volume: 0.3, level: 0.21 },
+        { ...APP.music, volume: 0.8, level: 0.56 },
       ],
     },
+    scene: [
+      { type: "browser", x: 610, y: 320, w: 560 },
+      { type: "music", x: 1010, y: 735 },
+    ],
     copy: {
       ja: {
         eyebrow: "Mac のための音量ミキサー",
         headline: "動画は小さく。\n音楽はそのまま。",
         sub: "Windows の音量ミキサーのように、アプリごとに音量を変えられます。メニューバーからすぐ。",
         points: [
-          { icon: "chrome", text: "YouTube は控えめに", chip: "30%" },
-          { icon: "music", text: "BGM はそのまま", chip: "80%" },
+          { icon: "chrome", text: "動画は控えめに", chip: "30%" },
+          { icon: "music", text: "音楽はそのまま", chip: "80%" },
           { icon: "discord", text: "通知音だけ消す", chip: "ミュート", gray: true },
         ],
       },
@@ -44,7 +65,7 @@ window.SHOTS = [
         headline: "Turn the video down.\nKeep the music up.",
         sub: "Give every app its own volume — just like the Volume Mixer on Windows, right in your menu bar.",
         points: [
-          { icon: "chrome", text: "YouTube, a little quieter", chip: "30%" },
+          { icon: "chrome", text: "Videos, a little quieter", chip: "30%" },
           { icon: "music", text: "Music, right where it was", chip: "80%" },
           { icon: "discord", text: "Notification pings, gone", chip: "Muted", gray: true },
         ],
@@ -55,18 +76,21 @@ window.SHOTS = [
   {
     id: "02-auto-ducking",
     layout: "side",
-    z: 1.75,
+    z: 1.8,
     popover: {
-      device: DEVICE_SPEAKER,
+      device: DEVICE.speaker,
       master: 0.62,
       rows: [
-        { name: "FaceTime", icon: "facetime", volume: 1.0, level: 0.48 },
-        { name: "Google Chrome", icon: "chrome", volume: 0.3, level: 0.05, ducked: true },
-        { name: "ミュージック", icon: "music", volume: 0.8, level: 0.12, ducked: true },
+        { ...APP.facetime, volume: 1.0, level: 0.48 },
+        { ...APP.chrome, volume: 0.3, level: 0.05, ducked: true },
+        { ...APP.music, volume: 0.8, level: 0.12, ducked: true },
       ],
       banner: "FaceTime",
-      settings: { ducking: true, level: 0.2, mic: true, login: true },
     },
+    scene: [
+      { type: "call", x: 610, y: 430, w: 440 },
+      { type: "music", x: 1010, y: 755 },
+    ],
     copy: {
       ja: {
         eyebrow: "通話中の自動ダッキング",
@@ -98,25 +122,25 @@ window.SHOTS = [
     sides: [
       {
         symbol: "headphones",
-        caption: DEVICE_AIRPODS,
+        caption: DEVICE.airpods,
         popover: {
-          device: DEVICE_AIRPODS,
+          device: DEVICE.airpods,
           master: 0.45,
           rows: [
-            { name: "Google Chrome", icon: "chrome", volume: 0.2, level: 0.14 },
-            { name: "ミュージック", icon: "music", volume: 0.35, level: 0.25 },
+            { ...APP.chrome, volume: 0.2, level: 0.14 },
+            { ...APP.music, volume: 0.35, level: 0.25 },
           ],
         },
       },
       {
         symbol: "hifispeaker.fill",
-        caption: DEVICE_SPEAKER,
+        caption: DEVICE.speaker,
         popover: {
-          device: DEVICE_SPEAKER,
+          device: DEVICE.speaker,
           master: 0.7,
           rows: [
-            { name: "Google Chrome", icon: "chrome", volume: 0.5, level: 0.35 },
-            { name: "ミュージック", icon: "music", volume: 0.85, level: 0.6 },
+            { ...APP.chrome, volume: 0.5, level: 0.35 },
+            { ...APP.music, volume: 0.85, level: 0.6 },
           ],
         },
       },
@@ -143,16 +167,20 @@ window.SHOTS = [
     z: 1.8,
     // 既定の出力は AirPods（通話はそのまま AirPods）、ミュージックだけスピーカーへ振る。
     popover: {
-      device: DEVICE_AIRPODS,
+      device: DEVICE.airpods,
       master: 0.5,
       rows: [
-        { name: "FaceTime", icon: "facetime", volume: 1.0, level: 0.5 },
+        { ...APP.facetime, volume: 1.0, level: 0.5 },
         {
-          name: "ミュージック", icon: "music", volume: 0.7, level: 0.48, output: DEVICE_SPEAKER,
-          menu: [DEVICE_AIRPODS, DEVICE_SPEAKER, DEVICE_USB],
+          ...APP.music, volume: 0.7, level: 0.48, output: DEVICE.speaker,
+          menu: [DEVICE.airpods, DEVICE.speaker, DEVICE.usb],
         },
       ],
     },
+    scene: [
+      { type: "call", x: 610, y: 470, w: 440 },
+      { type: "music", x: 1010, y: 755 },
+    ],
     copy: {
       ja: {
         eyebrow: "アプリごとの出力先",
@@ -194,7 +222,7 @@ window.SHOTS = [
           { symbol: "lock.shield", text: "データ収集なし" },
           { symbol: "mic.slash", text: "音声の録音・送信なし" },
         ],
-        requirement: "macOS 14.4 以降",
+        requirement: "macOS 14.4 以降 ・ 日本語 / English",
       },
       en: {
         headline: "The volume controls macOS left out,\nright in your menu bar.",
@@ -211,7 +239,7 @@ window.SHOTS = [
           { symbol: "lock.shield", text: "No data collected" },
           { symbol: "mic.slash", text: "Never records or sends audio" },
         ],
-        requirement: "macOS 14.4 or later",
+        requirement: "macOS 14.4 or later · English / 日本語",
       },
     },
   },

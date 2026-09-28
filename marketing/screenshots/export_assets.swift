@@ -72,6 +72,21 @@ let symbols: [(name: String, weight: NSFont.Weight)] = [
     ("mic.slash", .regular),
     ("arrow.left.arrow.right", .semibold),
     ("arrow.down", .semibold),
+    // 背景のウインドウ（ブラウザ・ミュージック・通話）
+    ("chevron.left", .medium),
+    ("chevron.right", .medium),
+    ("arrow.clockwise", .medium),
+    ("lock.fill", .regular),
+    ("plus", .medium),
+    ("play.fill", .regular),
+    ("pause.fill", .regular),
+    ("backward.fill", .regular),
+    ("forward.fill", .regular),
+    ("arrow.up.left.and.arrow.down.right", .medium),
+    ("mic.fill", .regular),
+    ("video.fill", .regular),
+    ("phone.down.fill", .regular),
+    ("person.fill", .regular),
 ]
 
 // 大きめに描いて、表示側で縮める。拡大表示でも輪郭が甘くならないように。
