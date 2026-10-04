@@ -33,7 +33,7 @@
 - 設定を反映できなかったとき、その行に印を出す
   （出力先の切り替えに追従できず音が止まった場合は復旧を試み続ける）
 
-[未リリース]: https://github.com/iam74k4/AppMixer-MacOS/compare/main...HEAD
-[1.0.2]: https://github.com/iam74k4/AppMixer-MacOS/compare/v1.0.1...HEAD
-[1.0.1]: https://github.com/iam74k4/AppMixer-MacOS/compare/v1.0...v1.0.1
-[1.0]: https://github.com/iam74k4/AppMixer-MacOS/releases/tag/v1.0
+[未リリース]: https://github.com/iam74k4/Apple-AppMixer/compare/main...HEAD
+[1.0.2]: https://github.com/iam74k4/Apple-AppMixer/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/iam74k4/Apple-AppMixer/compare/v1.0...v1.0.1
+[1.0]: https://github.com/iam74k4/Apple-AppMixer/releases/tag/v1.0

@@ -40,7 +40,7 @@ Mac App Store で公開予定（現在提出準備中）。それまでは [ソ�
 Xcode 15.3 以降（macOS 14.4 SDK）が必要です。
 
 ```bash
-git clone https://github.com/iam74k4/AppMixer-MacOS.git
+git clone https://github.com/iam74k4/Apple-AppMixer.git
 cd AppMixer-MacOS
 make run
 ```
